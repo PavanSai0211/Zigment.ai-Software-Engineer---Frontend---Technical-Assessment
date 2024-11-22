@@ -1,0 +1,29 @@
+import React from 'react';
+import MonacoEditor from 'react-monaco-editor';
+
+interface JSONEditorProps {
+  schema: FormSchema;
+  onSchemaChange: (schema: FormSchema) => void;
+}
+
+const JSONEditor: React.FC<JSONEditorProps> = ({ schema, onSchemaChange }) => {
+  const handleEditorChange = (newValue: string) => {
+    try {
+      const parsed = JSON.parse(newValue);
+      onSchemaChange(parsed);
+    } catch (e) {
+      console.error('Invalid JSON:', e);
+    }
+  };
+
+  return (
+    <MonacoEditor
+      language="json"
+      value={JSON.stringify(schema, null, 2)}
+      onChange={handleEditorChange}
+      options={{ automaticLayout: true }}
+    />
+  );
+};
+
+export default JSONEditor;
