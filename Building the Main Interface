@@ -1,0 +1,25 @@
+import React, { useState } from 'react';
+import JSONEditor from './components/JSONEditor';
+import FormRenderer from './components/FormRenderer';
+import './App.css';
+
+const App: React.FC = () => {
+  const [schema, setSchema] = useState<FormSchema>({
+    formTitle: '',
+    formDescription: '',
+    fields: [],
+  });
+
+  return (
+    <div className="flex flex-col md:flex-row h-screen">
+      <div className="w-full md:w-1/2 p-4 border-r">
+        <JSONEditor schema={schema} onSchemaChange={setSchema} />
+      </div>
+      <div className="w-full md:w-1/2 p-4">
+        <FormRenderer schema={schema} />
+      </div>
+    </div>
+  );
+};
+
+export default App;
